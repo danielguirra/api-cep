@@ -1,5 +1,4 @@
 {
-   // Visit https://aka.ms/tsconfig to read more about this file
    "compilerOptions": {
       "declaration": true,
       "declarationMap": true,
@@ -11,7 +10,7 @@
       "noUncheckedIndexedAccess": true,
       "noUncheckedSideEffectImports": true,
       "outDir": "./dist",
-      "rootDir": "./src",
+      "rootDir": "./",
       "skipLibCheck": true,
       "sourceMap": true,
       "strict": true,

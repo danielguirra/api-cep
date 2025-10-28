@@ -27,10 +27,15 @@ cep.post('/:id', async (req: Request, res: Response) => {
 
       res.setHeader('X-Cache', 'MISS');
       return res.status(200).json({ ...data, cached: false });
-   } catch (error: any) {
+   } catch (error: unknown) {
+      let message = 'Erro desconhecido';
+      if (error instanceof Error) {
+         message = error.message;
+      }
+
       return res.status(400).json({
          status: 400,
-         message: error.message as string,
+         message,
          cep,
       });
    }
