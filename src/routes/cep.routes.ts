@@ -7,7 +7,7 @@ const cep = Router();
 cep.post('/:id', async (req: Request, res: Response) => {
    const cep = req.params.id;
    const regex = /^\d{5}-?\d{3}$/;
-   if (!cep) return res.status(404);
+   if (!cep) return res.status(404).json();
    if (!regex.test(cep)) throw new Error('cep');
 
    const key = `cep:${cep}`;
