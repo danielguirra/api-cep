@@ -8,27 +8,29 @@ cep.post('/:id', async (req: Request, res: Response) => {
    const cep = req.params.id;
    const regex = /^\d{5}-?\d{3}$/;
    if (!cep) return res.status(404).json();
-   if (!regex.test(cep)) throw new Error('cep');
-
-   const key = `cep:${cep}`;
-   const cached = cache.get(key);
-
-   if (cached) {
-      console.log(`Cache|${key}|`);
-      res.setHeader('X-Cache', 'HIT');
-      return res.status(200).json({ ...cached, cached: true });
-   }
-
    try {
+      if (!regex.test(cep)) throw new Error('Cep inválido');
+
+      const key = `cep:${cep}`;
+      const cached = cache.get(key);
+
+      if (cached) {
+         console.log(`Cache|${key}|`);
+         res.setHeader('X-Cache', 'HIT');
+         return res.status(200).json({ ...cached, cached: true });
+      }
+
       const { data } = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      if (data.erro) throw new Error('Erro na requisição verifique o CEP');
+
       cache.set(key, data);
 
       res.setHeader('X-Cache', 'MISS');
       return res.status(200).json({ ...data, cached: false });
-   } catch (error) {
+   } catch (error: any) {
       return res.status(400).json({
          status: 400,
-         message: 'Erro na requisição verifique o CEP',
+         message: error.message as string,
          cep,
       });
    }
