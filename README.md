@@ -155,7 +155,7 @@ Essa estrutura facilita a manutenção e a escalabilidade, permitindo adicionar 
 
 -  **TypeScript** — tipagem estática e maior segurança no código.
 -  **Express.js** — framework web rápido e minimalista.
--  **node-fetch / axios** — consumo da API ViaCEP.
+-  **axios** — consumo da API ViaCEP.
 -  **apicache** — sistema de cache simples e eficiente.
 -  **dotenv** — carregamento seguro das variáveis de ambiente.
 
